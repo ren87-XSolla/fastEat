@@ -1,0 +1,12 @@
+{
+  "name": "fasteat",
+  "private": true,
+  "workspaces": ["apps/*"],
+  "engines": { "node": "^22.12.0 || ^24.0.0" },
+  "scripts": {
+    "dev": "concurrently -k -n api,web \"npm run dev -w @fasteat/api\" \"npm run dev -w @fasteat/web\"",
+    "build": "npm run build --workspaces",
+    "db:setup": "npm run db:setup -w @fasteat/api"
+  },
+  "devDependencies": { "concurrently": "^9.2.1" }
+}

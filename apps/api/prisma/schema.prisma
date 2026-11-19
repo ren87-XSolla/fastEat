@@ -1,0 +1,31 @@
+generator client {
+  provider            = "prisma-client"
+  output              = "../src/generated/prisma"
+  moduleFormat        = "cjs"
+  importFileExtension = ""
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Offer {
+  id                 String        @id @default(cuid())
+  title              String
+  cafeName           String
+  description        String
+  originalPriceCents Int
+  priceCents         Int
+  remaining          Int
+  reservations       Reservation[]
+}
+
+model Reservation {
+  id         String   @id @default(cuid())
+  offerId    String
+  offer      Offer    @relation(fields: [offerId], references: [id])
+  priceCents Int
+  createdAt  DateTime @default(now())
+
+  @@index([offerId])
+}
